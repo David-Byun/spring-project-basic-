@@ -19,4 +19,9 @@ public class MyBatisUserRepository implements UserRepository {
         Optional<User> user = userMapper.searchByEmail(email);
         return user;
     }
+
+    @Override
+    public void save(User user) {
+        userMapper.save(user);
+    }
 }

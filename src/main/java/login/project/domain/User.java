@@ -1,6 +1,5 @@
 package login.project.domain;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
