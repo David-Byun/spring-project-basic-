@@ -1,7 +1,7 @@
-package login.project.repository.mybatis;
+package login.project.repository.mybatis.item;
 
 import login.project.domain.Item;
-import login.project.repository.ItemUpdateDto;
+import login.project.repository.item.ItemUpdateDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

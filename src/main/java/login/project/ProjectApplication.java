@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
 @Import(MyBatisConfig.class)
-@SpringBootApplication(scanBasePackages = "login.project.web")
+@SpringBootApplication(scanBasePackages = "login.project.controller")
 public class ProjectApplication {
 
 	public static void main(String[] args) {

@@ -1,7 +1,7 @@
-package login.project.service;
+package login.project.service.item;
 
 import login.project.domain.Item;
-import login.project.repository.ItemUpdateDto;
+import login.project.repository.item.ItemUpdateDto;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,10 +1,10 @@
 package login.project.configuration;
 
-import login.project.repository.ItemRepository;
-import login.project.repository.mybatis.ItemMapper;
-import login.project.repository.mybatis.MyBatisItemRepository;
-import login.project.service.ItemService;
-import login.project.service.ItemServiceImpl;
+import login.project.repository.item.ItemRepository;
+import login.project.repository.mybatis.item.ItemMapper;
+import login.project.repository.mybatis.item.MyBatisItemRepository;
+import login.project.service.item.ItemService;
+import login.project.service.item.ItemServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

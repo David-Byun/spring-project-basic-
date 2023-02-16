@@ -1,4 +1,4 @@
-package login.project.repository;
+package login.project.repository.item;
 
 import lombok.Data;
 

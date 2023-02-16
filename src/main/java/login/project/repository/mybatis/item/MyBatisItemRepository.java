@@ -1,8 +1,8 @@
-package login.project.repository.mybatis;
+package login.project.repository.mybatis.item;
 
 import login.project.domain.Item;
-import login.project.repository.ItemRepository;
-import login.project.repository.ItemUpdateDto;
+import login.project.repository.item.ItemRepository;
+import login.project.repository.item.ItemUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

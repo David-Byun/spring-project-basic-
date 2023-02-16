@@ -1,8 +1,8 @@
-package login.project.web;
+package login.project.controller;
 
 import login.project.domain.Item;
-import login.project.repository.ItemUpdateDto;
-import login.project.service.ItemService;
+import login.project.repository.item.ItemUpdateDto;
+import login.project.service.item.ItemService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

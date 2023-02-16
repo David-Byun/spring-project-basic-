@@ -1,8 +1,8 @@
-package login.project.service;
+package login.project.service.item;
 
 import login.project.domain.Item;
-import login.project.repository.ItemRepository;
-import login.project.repository.ItemUpdateDto;
+import login.project.repository.item.ItemRepository;
+import login.project.repository.item.ItemUpdateDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
