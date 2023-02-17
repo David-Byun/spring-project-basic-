@@ -3,8 +3,12 @@ package login.project.configuration;
 import login.project.repository.item.ItemRepository;
 import login.project.repository.mybatis.item.ItemMapper;
 import login.project.repository.mybatis.item.MyBatisItemRepository;
+import login.project.repository.mybatis.user.MyBatisUserRepository;
+import login.project.repository.mybatis.user.UserMapper;
+import login.project.repository.user.UserRepository;
 import login.project.service.item.ItemService;
 import login.project.service.item.ItemServiceImpl;
+import login.project.service.user.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +18,7 @@ import org.springframework.context.annotation.Configuration;
 public class MyBatisConfig {
 
     private final ItemMapper itemMapper;
+    private final UserMapper userMapper;
 
     @Bean
     public ItemService itemService(){
@@ -24,4 +29,16 @@ public class MyBatisConfig {
     public ItemRepository itemRepository() {
         return new MyBatisItemRepository(itemMapper);
     }
+
+    @Bean
+    public UserDetailsServiceImpl userService() {
+        return new UserDetailsServiceImpl(userRepository());
+    }
+
+    @Bean
+    public UserRepository userRepository() {
+        return new MyBatisUserRepository(userMapper);
+    }
+
+
 }

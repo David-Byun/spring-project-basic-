@@ -1,13 +1,13 @@
 package login.project.security;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import login.project.domain.UserRoleEnum;
 import login.project.service.user.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +31,8 @@ public class JwtTokenProvider {
      * 5. Filter 과정이 끝나면 시큐리티에 다음 Filter로 이동
      */
     private final UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Value("${jwt.token.key}")
     private String secretKey;
 
     //토큰 유효시간 설정
@@ -39,7 +41,7 @@ public class JwtTokenProvider {
     //secretkey를 미리 인코딩 해줌
     @PostConstruct
     protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+      secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
     //jwt 토큰 생성

@@ -12,7 +12,6 @@ public class MainPageController {
     public String mainPage(@AuthenticationPrincipal UserDetailsImpl userDetails, Model model) {
         if (userDetails != null) {
             User user = userDetails.getUser();
-            System.out.println(user.getRole());
             //user.getRole().getDescription() 확인
         }
         //rest api 스타일로 변경 필요

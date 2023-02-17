@@ -1,5 +1,7 @@
 package login.project.controller;
+
 import login.project.domain.User;
+import login.project.domain.UserRoleEnum;
 import login.project.repository.user.LoginUserDto;
 import login.project.repository.user.UserDto;
 import login.project.security.JwtTokenProvider;
@@ -7,7 +9,6 @@ import login.project.security.UserDetailsImpl;
 import login.project.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,6 +65,13 @@ public class UserController {
     @ResponseBody
     public String login(LoginUserDto loginUserDto, HttpServletResponse response) {
         User user = userService.login(loginUserDto);
+        String checkEmail = user.getEmail();
+        UserRoleEnum role = user.getRole();
+
+        String token = jwtTokenProvider.createToken(checkEmail, role);
+        response.setHeader("JWT", token);
+
+        return token;
     }
 
 

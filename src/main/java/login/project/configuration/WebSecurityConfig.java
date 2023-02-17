@@ -1,6 +1,9 @@
 package login.project.configuration;
 
-import login.project.service.user.UserDetailsServiceImpl;
+import login.project.error.CustomAccessDeniedHandler;
+import login.project.error.CustomAuthenticationEntryPoint;
+import login.project.security.JwtAuthenticationFilter;
+import login.project.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -10,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @EnableWebSecurity
@@ -17,7 +21,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class WebSecurityConfig   {
 
-    private final UserDetailsServiceImpl userDetailsServiceImpl;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
     public BCryptPasswordEncoder encoderPassword(){
@@ -44,9 +48,14 @@ public class WebSecurityConfig   {
         http.authorizeRequests().antMatchers("/users/signup", "/", "/user/login", "/css/**", "/exception/**", "/favicon.ico").permitAll().anyRequest().authenticated();
 
         //JwtFilter 추가
+        http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
 
-        //비 인가자 요청시 보낼 api url
-        http.exceptionHandling().accessDeniedPage(new CustomAuth);
+        //JwtAuthentication exception handling
+        http.exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+
+        //access Denial handler
+        http.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
+
         return http.build();
     }
 }
