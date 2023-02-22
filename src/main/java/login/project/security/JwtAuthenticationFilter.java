@@ -2,6 +2,7 @@ package login.project.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
 
 import javax.servlet.FilterChain;
@@ -26,9 +27,14 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
 
             //토큰 인증과정 거친 결과를 authentication이라는 이름으로 저장해줌
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
+            //SecurityContext에 Authentication 객체를 저장합니다
+            //token이 인증된 상태를 유지하도록 context(맥락)을 유지
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
         }
+        //UsernamePasswordAuthenticationFilter로 이동
+        chain.doFilter(request, response);
 
     }
 }

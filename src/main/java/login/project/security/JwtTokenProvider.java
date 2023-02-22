@@ -23,7 +23,7 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    /**
+    /*
      * 1. 사용자의 Request Header에 토큰을 가져온다
      * 2. 해당 토큰의 유효성 검사를 실시해서 유효하면
      * 3. Authentication 인증 객체를 만들고
@@ -53,7 +53,10 @@ public class JwtTokenProvider {
         //payload설정
         //registered claims
         Date now = new Date();
-        Claims claims = Jwts.claims().setSubject("access_token").setIssuedAt(now).setExpiration(new Date(now.getTime() + tokenValidTime)); //토큰 만료기한
+        Claims claims = Jwts.claims()
+                .setSubject("access_token") //토큰 제목
+                .setIssuedAt(now) // 발행 시간
+                .setExpiration(new Date(now.getTime() + tokenValidTime)); //토큰 만료기한
 
         //private claims
         claims.put("email", email);

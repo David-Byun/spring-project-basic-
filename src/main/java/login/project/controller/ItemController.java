@@ -4,12 +4,14 @@ import login.project.domain.Item;
 import login.project.repository.item.ItemUpdateDto;
 import login.project.service.item.ItemService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequiredArgsConstructor
 @RequestMapping("/items")
 public class ItemController {

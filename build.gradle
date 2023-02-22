@@ -11,7 +11,9 @@ sourceCompatibility = '1.8'
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor
+
 	}
+
 }
 
 repositories {
@@ -22,6 +24,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	//java11 xml.bind 삭제됨에 따라 spring security와 충돌되어 추가
+	implementation 'jakarta.xml.bind:jakarta.xml.bind-api:2.3.3'
+	//Oauth
+
 	implementation 'mysql:mysql-connector-java:8.0.25'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 	compileOnly 'org.projectlombok:lombok'
@@ -35,3 +41,4 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+

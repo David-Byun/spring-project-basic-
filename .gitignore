@@ -45,3 +45,4 @@ out
 gen
 gradlew.bat
 application.properties
+application-oauth.properties

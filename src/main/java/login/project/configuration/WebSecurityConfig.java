@@ -19,7 +19,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 @RequiredArgsConstructor
-public class WebSecurityConfig   {
+public class WebSecurityConfig  {
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -33,6 +33,8 @@ public class WebSecurityConfig   {
         return (web) -> web.ignoring().antMatchers("/mysql/**");
     }
 
+
+    //HttpSecurity 설정 : 각종 설정(리소스 접근, login/logout 페이지 인증완료 후 인증 실패시 이동, 커스텀필터, csrf, 강제 https 호출등
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         //csfr 사용안함, JWT방식을 제대로 쓰려고 하면 Restful한 API 형태
@@ -44,8 +46,8 @@ public class WebSecurityConfig   {
         //JWT는 stateless이기 때문에 세션 사용 안함
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        //URL 인증여부 설정
-        http.authorizeRequests().antMatchers("/users/signup", "/", "/user/login", "/css/**", "/exception/**", "/favicon.ico").permitAll().anyRequest().authenticated();
+        //URL 인증여부 설정(Oauth시 /login/oauth2/code/google, /user/oauth/password/** 추가)
+        http.authorizeRequests().antMatchers("/user/signup", "items/**", "/", "/user/login", "/css/**", "/exception/**", "/favicon.ico", "/items/**", "/login/oauth2/code/google", "/user/oauth/password/**").permitAll().anyRequest().authenticated();
 
         //JwtFilter 추가
         http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
@@ -56,6 +58,51 @@ public class WebSecurityConfig   {
         //access Denial handler
         http.exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler());
 
+        //Oauth2 설정
+
+        //구글로그인 성공 후, 구글에서 사용자 정보를 보내오는데 이 때 추가로 진행할 Service 클래스 구현하여 명시
+        http.oauth2Login().userInfoEndpoint().userService(new Oauth2UserServiceImpl());
+
+        //인증 성공시 처리를 진행할 successHandler 구현
+        http.oauth2Login().successHandler(oAuth2SuccessHandler);
+
         return http.build();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
