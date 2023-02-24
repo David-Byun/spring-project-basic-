@@ -18,7 +18,11 @@ public enum ErrorCode implements EnumModel {
     SAME_USER(400, "J002", "동일한 이메일이 존재합니다"),
     NO_USER(400, "J003", "없는 사용자입니다"),
     NO_LOGIN(400, "J004", "로그인이 필요합니다"),
-    NO_ADMIN(400, "J005", "권한이 없는 사용자입니다");
+    NO_ADMIN(400, "J005", "권한이 없는 사용자입니다"),
+
+    // File
+    UPLOAD_FAIL(400, "U001", "파일 업로드가 실패했습니다"),
+    DOWNLOAD_FAIL(400, "D001", "파일 다운로드가 실패했습니다");
 
     private int status;
     private String code;

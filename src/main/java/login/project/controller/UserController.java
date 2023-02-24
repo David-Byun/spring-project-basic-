@@ -39,7 +39,7 @@ public class UserController {
         try {
             User user = userDetails.getUser();
             return ResponseEntity.ok().body(String.valueOf(user));
-        } catch (NullPointerException e){
+        } catch (NullPointerException e) {
             return ResponseEntity.badRequest().body(ErrorResponse.of(ErrorCode.RESOURCE_NOT_FOUND).getMessage());
             // NullPointerException은 실제 값이 아닌 null을 가지고 있는 객체/변수를 호출할 때 발생하는 예외
         }
@@ -56,8 +56,8 @@ public class UserController {
     //로그인 페이지 이동
     @GetMapping("/user/login")
     public ResponseEntity<User> loginForm(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-            User user = userDetails.getUser();
-            return ResponseEntity.ok().body(user);
+        User user = userDetails.getUser();
+        return ResponseEntity.ok().body(user);
     }
 
     @ResponseBody
@@ -78,6 +78,15 @@ public class UserController {
         response.setHeader("JWT", token);
 
         return token;
+    }
+
+    //인증받은 구글 이메일과 닉네임을 받아 비밀번호 입력 Html로 보내줌
+    //이후부터 3펴넹서 다뤘던 DB에 회원정보 넣고, JWT토큰 발급받아 전달
+    @GetMapping("/user/oauth/password/{email}/{nickname}")
+    public String oauth(@PathVariable("email") String email, @PathVariable("nickname") String nickname) {
+        System.out.println("email = " + email);
+        System.out.println("nickname = " + nickname);
+        return "finished";
     }
 }
 

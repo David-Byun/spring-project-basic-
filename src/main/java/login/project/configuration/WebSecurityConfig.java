@@ -4,6 +4,8 @@ import login.project.error.CustomAccessDeniedHandler;
 import login.project.error.CustomAuthenticationEntryPoint;
 import login.project.security.JwtAuthenticationFilter;
 import login.project.security.JwtTokenProvider;
+import login.project.security.OAuth2SuccessHandler;
+import login.project.service.user.OAuth2UserServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -21,6 +23,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class WebSecurityConfig  {
 
+    private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Bean
@@ -61,7 +64,7 @@ public class WebSecurityConfig  {
         //Oauth2 설정
 
         //구글로그인 성공 후, 구글에서 사용자 정보를 보내오는데 이 때 추가로 진행할 Service 클래스 구현하여 명시
-        http.oauth2Login().userInfoEndpoint().userService(new Oauth2UserServiceImpl());
+        http.oauth2Login().userInfoEndpoint().userService(new OAuth2UserServiceImpl());
 
         //인증 성공시 처리를 진행할 successHandler 구현
         http.oauth2Login().successHandler(oAuth2SuccessHandler);
