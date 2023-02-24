@@ -50,7 +50,7 @@ public class WebSecurityConfig  {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         //URL 인증여부 설정(Oauth시 /login/oauth2/code/google, /user/oauth/password/** 추가)
-        http.authorizeRequests().antMatchers("/user/signup", "items/**", "/", "/user/login", "/css/**", "/exception/**", "/favicon.ico", "/items/**", "/login/oauth2/code/google", "/user/oauth/password/**").permitAll().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers("/user/signup", "items/**", "/", "/user/login", "/css/**", "/exception/**", "/favicon.ico", "/items/**", "/login/oauth2/code/google", "/user/oauth/password/**", "/uploadFile", "/uploadMultipleFiles", "/downloadFile/*").permitAll().anyRequest().authenticated();
 
         //JwtFilter 추가
         http.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);

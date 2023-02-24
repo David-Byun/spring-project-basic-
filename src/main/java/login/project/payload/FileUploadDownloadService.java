@@ -1,13 +1,13 @@
 package login.project.payload;
 
-import jdk.internal.loader.Resource;
 import login.project.error.CustomException;
 import login.project.error.ErrorCode;
-import org.apache.tomcat.util.http.fileupload.FileUploadException;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -37,13 +37,16 @@ public class FileUploadDownloadService {
             Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
             return fileName;
         } catch (Exception e) {
-
             throw new CustomException("[" + fileName + "] 파일 업로드에 실패했습니다. 다시 시도하십시오.", ErrorCode.UPLOAD_FAIL);
         }
     }
-    public Resource loadFileAsResource(String fileName) {
+    public UrlResource loadFileAsResource(String fileName) {
         try {
-            this.fileLocation.
+            Path filePath = this.fileLocation.resolve(fileName).normalize();
+            UrlResource resource = new UrlResource(filePath.toUri());
+            return resource;
+        } catch (MalformedURLException e) {
+            throw new CustomException(fileName + "파일을 찾을수 없습니다.", ErrorCode.UPLOAD_FAIL);
         }
     }
 }
