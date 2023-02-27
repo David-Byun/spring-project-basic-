@@ -4,6 +4,8 @@ import login.project.error.CustomException;
 import login.project.error.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -23,13 +25,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class FileUploadController {
+    @Autowired
     private FileUploadDownloadService service;
 
-    @GetMapping("/uploadFile")
+    @PostMapping("/uploadFile")
     public FileUploadResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = service.storeFile(file);
+        String fileName = String.valueOf(service.storeFile(file));
+        log.info("파일 확인 = {}", file);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
+                .path("/uploadFile/")
                 .path(fileName)
                 .toUriString();
         return new FileUploadResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
@@ -42,9 +46,9 @@ public class FileUploadController {
     }
 
     @GetMapping("/downloadFile/{fileName:.+}")
-    public ResponseEntity<UrlResource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         //Load file as Resource
-        UrlResource resource = service.loadFileAsResource(fileName);
+        Resource resource = service.loadFileAsResource(fileName);
 
         //Try to determine file`s content type
         String contentType = null;

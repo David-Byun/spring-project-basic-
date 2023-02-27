@@ -22,7 +22,11 @@ public enum ErrorCode implements EnumModel {
 
     // File
     UPLOAD_FAIL(400, "U001", "파일 업로드가 실패했습니다"),
-    DOWNLOAD_FAIL(400, "D001", "파일 다운로드가 실패했습니다");
+    DOWNLOAD_FAIL(400, "D001", "파일 다운로드가 실패했습니다"),
+
+    ALL_FIlE_NOT_FOUND(400, "F001", "업로드 된 파일 전체가 존재하지 않습니다"),
+
+    FILE_NOT_FOUND(400, "F002", "업로드된 파일이 존재하지 않습니다");
 
     private int status;
     private String code;

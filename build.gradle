@@ -35,13 +35,17 @@ dependencies {
 	implementation 'mysql:mysql-connector-java:8.0.25'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
 
-
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	testCompileOnly 'org.projectlombok:lombok'
 	testAnnotationProcessor('org.projectlombok:lombok')
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation "io.jsonwebtoken:jjwt:0.9.1"
+
+	//batch
+	compile('org.springframework.boot:spring-boot-starter-batch')
 }
 
 tasks.named('test') {
